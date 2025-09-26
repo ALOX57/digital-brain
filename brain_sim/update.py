@@ -3,11 +3,7 @@ from .config import SIZE
 def step_diffusion(brain, alpha):
     g = brain.grid
     neighbors = brain.neighbors
-    next_grid = [
-        [[0, 0, 0], [0, 0, 0], [0, 0, 0]],
-        [[0, 0, 0], [0, 0, 0], [0, 0, 0]],
-        [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
-    ]
+    next_grid = [[[0.0 for _ in range(SIZE)] for _ in range(SIZE)] for _ in range(SIZE)]
 
     for z, layer in enumerate(brain.grid):
         for y, row in enumerate(layer):

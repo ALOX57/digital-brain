@@ -1,5 +1,6 @@
 from brain_sim.brain import Brain
 from brain_sim.config import SEEDS, SIZE
+import matplotlib.pyplot as plt
 
 brain = Brain()
 
@@ -9,7 +10,7 @@ for (z, y, x), v in SEEDS:
 def project_brain(brain, mode="mean"):
     g=brain.grid
 
-    projection = [[0,0,0],[0,0,0],[0,0,0]]
+    projection = [[0 for _ in range(SIZE)] for _ in range(SIZE)]
 
     if mode == "mean":
         for z, layer in enumerate(brain.grid):
@@ -31,10 +32,8 @@ def project_brain(brain, mode="mean"):
 
     return projection
 
-print(project_brain(brain))
 
-
-
-
-
-# def plot_heatmap(grid):
+def plot_heatmap(grid, vmin=0.0, vmax=1.0, cmap="hot"):
+    plt.imshow(grid, vmin=vmin, vmax=vmax, cmap=cmap, origin="lower", interpolation="nearest")
+    plt.colorbar()
+    plt.show()

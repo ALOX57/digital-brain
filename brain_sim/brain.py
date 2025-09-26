@@ -4,11 +4,7 @@ class Brain:
     def __init__(self, size=SIZE, offsets = OFF):
         self.size = size
 
-        self.grid = [
-            [[0, 0, 0], [0, 0, 0], [0, 0, 0]],
-            [[0, 0, 0], [0, 0, 0], [0, 0, 0]],
-            [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
-        ]
+        self.grid = [[[0.0 for _ in range(SIZE)] for _ in range(SIZE)] for _ in range(SIZE)]
 
         self.neighbors = {}
 

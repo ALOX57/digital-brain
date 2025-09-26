@@ -3,6 +3,7 @@ from brain_sim.brain import Brain
 from brain_sim.synapses import Synapses
 from brain_sim.update import step_diffusion
 from brain_sim.timing import FixedRateLoop
+from brain_sim.viz import project_brain, plot_heatmap
 
 
 def main():
@@ -24,6 +25,9 @@ def main():
     print(f"Avg compute per step: {avg_compute_ms:.4f} ms")
     print(f"Avg wall per step (incl. sleep): {avg_wall_ms:.4f} ms")
     print(f"Budget used: {avg_compute_ms / (TICK_S * 1000):.4%} of {TICK_S * 1000:.0f} ms")
+
+    grid = project_brain(brain)
+    plot_heatmap(grid)
 
 
 if __name__ == "__main__":
