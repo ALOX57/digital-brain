@@ -1,22 +1,19 @@
 from brain_sim.config import SIZE, SEEDS, ALPHA, STEPS, TICK_S
 from brain_sim.brain import Brain
-from brain_sim.synapses import Synapses
-from brain_sim.update import step_diffusion
+from brain_sim.update import step_predictive
 from brain_sim.timing import FixedRateLoop
-from brain_sim.viz import project_brain, plot_heatmap
-
+from brain_sim.viz import plot_heatmap
 
 def main():
     brain = Brain()
-    syn = Synapses(brain, brain.neighbors)
 
-    for (z, y, x), v in SEEDS:
-        brain.set_cell(z, y, x, v)
+    for (y, x), v in SEEDS:
+        brain.set_cell(y, x, v)
 
     loop = FixedRateLoop(TICK_S)
 
     def do_step(i):
-        step_diffusion(brain, ALPHA)
+        step_predictive(brain, ALPHA)
 
     wall_ms_total, avg_compute_ms, avg_wall_ms = loop.run(STEPS, do_step)
 
@@ -25,9 +22,8 @@ def main():
     print(f"Avg wall per step (incl. sleep): {avg_wall_ms:.4f} ms")
     print(f"Budget used: {avg_compute_ms / (TICK_S * 1000):.4%} of {TICK_S * 1000:.0f} ms")
 
-    grid = project_brain(brain)
-    plot_heatmap(grid)
-
+    print(brain.sns[3][3])
+    plot_heatmap(brain.prd)
 
 if __name__ == "__main__":
     main()
