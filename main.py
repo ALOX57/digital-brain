@@ -17,7 +17,6 @@ def main():
 
     def do_step(i):
         step_diffusion(brain, ALPHA)
-        print(f"After step {i + 1}, center = {brain.get_cell(1, 1, 1)}")
 
     wall_ms_total, avg_compute_ms, avg_wall_ms = loop.run(STEPS, do_step)
 
