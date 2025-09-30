@@ -1,28 +1,28 @@
 from .config import SIZE, OFF
+import random
 
 class Brain:
     def __init__(self, size=SIZE, offsets = OFF):
         self.size = size
 
-        self.grid = [[[0.0 for _ in range(SIZE)] for _ in range(SIZE)] for _ in range(SIZE)]
 
-        self.neighbors = {}
+        self.sns = [[0.0 for _ in range(size)] for _ in range (size)]
+        self.prd = [[0.0 for _ in range(size)] for _ in range (size)]
 
-        # map Moore neighbors for each neuron
-        for z, layer in enumerate(self.grid):
-            for y, row in enumerate(layer):
-                for x, cell in enumerate(row):
-                    N = []
+        self.connections = [[[[0.0 for _ in range(3)] for _ in range(3)] for _ in range (size)] for _ in range(size)]
 
-                    for dz in offsets:
-                        for dy in offsets:
-                            for dx in offsets:
-                                if dz == 0 and dy == 0 and dx == 0:
-                                    continue
-                                nz, ny, nx = z + dz, y + dy, x + dx
-                                if 0 <= nz < SIZE and 0 <= ny < SIZE and 0 <= nx < SIZE:
-                                    N.append((nz, ny, nx))
-                    self.neighbors[(z, y, x)] = N
+        for y, row in enumerate(self.prd):
+            for x, cell in enumerate(row):
+                for dy in offsets:
+                    for dx in offsets:
+                        ny, nx = y + dy, x + dx
+                        if 0 <= ny < size and 0 <= nx < size:
+                            dy_i = dy + 1
+                            dx_i = dx + 1
+                            connections[y][x][dy_i][dx_i] = random.uniform(-0.1, 0.1)
+
+
+
 
     def set_cell(self, z, y, x, v):
             self.grid[z][y][x] = v
